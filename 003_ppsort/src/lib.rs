@@ -2,9 +2,11 @@ mod helper;
 mod insert_sort;
 mod merge_sort;
 mod quick_sort;
+mod counting_sort;
 pub use insert_sort::insert_sort;
 pub use merge_sort::merge_sort;
 pub use quick_sort::quick_sort;
+pub use counting_sort::counting_sort;
 
 #[cfg(test)]
 mod tests {
