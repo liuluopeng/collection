@@ -1,20 +1,43 @@
-use ppsort::quick_sort;
-use rand::Rng;
-
 fn main() {
-    // 创建一个随机数生成器
-    let mut rng = rand::thread_rng();
+    let mut arr = vec![10, 60, 34, 24, 2, 77, 10, 73, 26, 50];
+    heap_sort(&mut arr);
+    println!("{:?}", arr); // 输出: [2, 10, 10, 24, 26, 34, 50, 60, 73, 77]
+}
 
-    let mut numbers = Vec::with_capacity(1000000);
+fn heap_sort<T: Ord + std::fmt::Display + std::fmt::Debug>(arr: &mut [T]) {
+    let len = arr.len();
+    println!("arr:{:?}", arr);
 
-    // 生成随机数并将其添加到向量中
-    for _ in 0..1000000 {
-        let random_number = rng.gen_range(0..=100000);
-        numbers.push(random_number);
+    // 构建最大堆
+    for i in (0..=len / 2).rev() {
+        max_heapify(arr, i, len);
     }
 
-    let len = numbers.len();
+    println!("max heap:{:?}", arr);
+    // max heap:[77, 73, 34, 60, 50, 10, 10, 24, 26, 2]
+    // 从最后一个元素开始，依次将最大元素交换到数组末尾
+    for i in (1..len).rev() {
+        arr.swap(0, i); // 将最大元素交换到数组末尾
+        max_heapify(arr, 0, i);
+    }
+}
 
-    quick_sort(&mut numbers, 0, len-1);
-    println!("{:?}", numbers);
+fn max_heapify<T: Ord+ std::fmt::Display + std::fmt::Debug>(arr: &mut [T], i: usize, heap_size: usize) {
+    let left = 2 * i + 1;
+    let right = 2 * i + 2;
+    let mut largest = i;
+
+    if left < heap_size && arr[left] > arr[largest] {
+        largest = left;
+    }
+
+    if right < heap_size && arr[right] > arr[largest] {
+        largest = right;
+    }
+
+    if largest != i {
+        println!("i:{}  larg:{}", arr[i], arr[largest]);
+        arr.swap(i, largest);
+        max_heapify(arr, largest, heap_size);
+    }
 }

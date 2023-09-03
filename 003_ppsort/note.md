@@ -21,3 +21,23 @@
     
     let mut counter_arr = vec![0, (max - min + 1 ) as usize ];
 ```
+
+# 最大堆
+
+```rust 
+    if left_index < n && arr[bigger_index] < arr[left_index] {
+        bigger_index = left_index;
+    }
+    if right_index < n && arr[bigger_index] < arr[right_index] {
+        bigger_index = right_index;
+    }
+```
+我写成
+```rust
+    if left_index < n && arr[i] < arr[left_index] {
+        bigger_index = left_index;
+    }
+    if right_index < n && arr[i] < arr[right_index] {
+        bigger_index = right_index;
+    }
+```
